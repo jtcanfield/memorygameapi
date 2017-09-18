@@ -24,7 +24,7 @@ app.post("/stats/:playername", function (req, res) {
 app.get("/listing", function (req, res) {
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
-    res.send(statsdb);
+    res.json(statsdb);
     return statsdb
   })
 });
