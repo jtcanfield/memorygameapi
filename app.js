@@ -1,8 +1,6 @@
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
-const fs = require('fs');
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const mongoURL = 'mongodb://databaseedit:timetoeditthedb@ds139904.mlab.com:39904/memorygamedb';
@@ -23,28 +21,21 @@ app.post("/stats/:playername", function (req, res) {
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
     statsdb.insertOne({playername: req.params.playername, time: "instant"});
-    return
   })
 });
 app.get("/listing", function (req, res) {
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
     statsdb.find().toArray(function (err, docs) {
-      // res.send(docs);
-      res.json(docs);
-      // JSON.stringify(docs)
-      return docs
+      return res.json(docs);
     })
   })
 });
-app.listen(process.env.PORT || 5000, function () {
-  console.log('Hosted on local:5000 or Dynamic');
-})
+app.listen(process.env.PORT || 5000);
 MongoClient.connect(mongoURL, function(err, db) {
   if (err){
     console.log("ERROR");
     console.log(err);
   }
-  console.log("Connected successfully to server at " + mongoURL);
   db.close();
 });
