@@ -25,21 +25,10 @@ app.get("/listing", function (req, res) {
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
     statsdb.find().toArray(function (err, docs) {
-      console.log("GET FOR LISTING FIRED");
-      res.json(docs);
+      res.send(docs);
+      // res.json(docs);
       // JSON.stringify(docs)
-      return docs
-    })
-  })
-});
-app.post("/listing", function (req, res) {
-  MongoClient.connect(mongoURL, function (err, db) {
-    const statsdb = db.collection("statistics");
-    statsdb.find().toArray(function (err, docs) {
-      console.log("POST FOR LISTING FIRED");
-      res.json(docs);
-      // JSON.stringify(docs)
-      return docs
+      // return docs
     })
   })
 });
