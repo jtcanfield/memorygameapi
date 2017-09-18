@@ -13,17 +13,15 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-app.get("/", function (req, res) {
-  res.send("Hello");
-});
-app.post("/stats/:playername", function (req, res) {
-  console.log(req.params.playername);
+app.post("/stats/:data", function (req, res) {
+  console.log(req.params.data);
+  console.log(req.body);
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
     statsdb.insertOne({playername: req.params.playername, time: "instant"});
   })
 });
-app.get("/listing", function (req, res) {
+app.get("/stats", function (req, res) {
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
     statsdb.find().toArray(function (err, docs) {
