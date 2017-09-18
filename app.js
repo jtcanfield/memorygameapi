@@ -14,11 +14,9 @@ app.use(function(req, res, next) {
   next();
 });
 app.post("/stats/:data", function (req, res) {
-  let parse = JSON.parse(req.params.data);
-  console.log(parse);
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
-    statsdb.insertOne(parse);
+    statsdb.insertOne(JSON.parse(req.params.data));
   })
 });
 app.get("/stats", function (req, res) {
