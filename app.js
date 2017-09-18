@@ -43,8 +43,8 @@ app.post("/listing", function (req, res) {
     })
   })
 });
-app.listen(3000, function () {
-  console.log('Hosted on local:3000');
+app.listen(process.env.PORT || 5000, function () {
+  console.log('Hosted on local:5000 or Dynamic');
 })
 MongoClient.connect(mongoURL, function(err, db) {
   if (err){
