@@ -15,18 +15,33 @@ app.get("/", function (req, res) {
 });
 app.post("/stats/:playername", function (req, res) {
   console.log(req.params.playername);
-  // MongoClient.connect(mongoURL, function (err, db) {
-  //   const statsdb = db.collection("statistics");
-  //   statsdb.insertOne({playername: req.params.playername, time: "instant"});
-  // })
+  MongoClient.connect(mongoURL, function (err, db) {
+    const statsdb = db.collection("statistics");
+    statsdb.insertOne({playername: req.params.playername, time: "instant"});
+    return
+  })
+});
+app.get("/listing", function (req, res) {
+  MongoClient.connect(mongoURL, function (err, db) {
+    const statsdb = db.collection("statistics");
+    res.send(statsdb);
+    return statsdb
+  })
+});
+app.post("/listing", function (req, res) {
+  MongoClient.connect(mongoURL, function (err, db) {
+    const statsdb = db.collection("statistics");
+    return statsdb
+  })
 });
 app.listen(3000, function () {
+  console.log('Hosted on local:3000');
 })
 MongoClient.connect(mongoURL, function(err, db) {
   if (err){
     console.log("ERROR");
     console.log(err);
   }
-  // console.log("Connected successfully to server at " + mongoURL);
+  console.log("Connected successfully to server at " + mongoURL);
   db.close();
 });
