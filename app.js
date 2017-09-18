@@ -24,14 +24,23 @@ app.post("/stats/:playername", function (req, res) {
 app.get("/listing", function (req, res) {
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
-    res.json(statsdb);
-    return statsdb
+    statsdb.find().toArray(function (err, docs) {
+      console.log("GET FOR LISTING FIRED");
+      // res.json(docs);
+      // JSON.stringify(docs)
+      return docs
+    })
   })
 });
 app.post("/listing", function (req, res) {
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
-    return statsdb
+    statsdb.find().toArray(function (err, docs) {
+      console.log("POST FOR LISTING FIRED");
+      // res.json(docs);
+      // JSON.stringify(docs)
+      return docs
+    })
   })
 });
 app.listen(3000, function () {
