@@ -17,8 +17,8 @@ app.get("/", function (req, res) {
 });
 
 MongoClient.connect(mongoURL, function (err, db) {
-  console.log(db);
-  const users = db.collection("statistics");
+  const statsdb = db.collection("statistics");
+  statsdb.insertOne({playername: "testguy", time: "instant"});
 })
 
 
