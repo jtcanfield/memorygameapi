@@ -25,10 +25,10 @@ app.get("/listing", function (req, res) {
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
     statsdb.find().toArray(function (err, docs) {
-      res.send(docs);
-      // res.json(docs);
+      // res.send(docs);
+      res.json(docs);
       // JSON.stringify(docs)
-      // return docs
+      return docs
     })
   })
 });
