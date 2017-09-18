@@ -14,9 +14,8 @@ app.use(function(req, res, next) {
   next();
 });
 app.post("/stats/:data", function (req, res) {
-  console.log("TEST API FIRED:");
-  console.log(req.params.data);
-  console.log(req.body);
+  let parse = JSON.parse(req.params.data);
+  console.log(parse);
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
     // statsdb.insertOne({playername: req.params.playername, time: "instant"});
