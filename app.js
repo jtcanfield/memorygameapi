@@ -18,7 +18,7 @@ app.post("/stats/:data", function (req, res) {
   console.log(parse);
   MongoClient.connect(mongoURL, function (err, db) {
     const statsdb = db.collection("statistics");
-    // statsdb.insertOne({playername: req.params.playername, time: "instant"});
+    statsdb.insertOne(parse);
   })
 });
 app.get("/stats", function (req, res) {
